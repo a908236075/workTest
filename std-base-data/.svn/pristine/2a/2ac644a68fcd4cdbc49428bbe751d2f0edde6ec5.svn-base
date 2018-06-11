@@ -1,0 +1,148 @@
+/**
+ * 
+ */
+package cn.com.chnsys.std_base_data.business;
+
+import static cn.com.chnsys.dtc.court.std.base.constants.CourtStdVersion.unsuppertStdVersion;
+import static cn.com.chnsys.std_base_data.constants.STDConstants.V2005;
+import static cn.com.chnsys.std_base_data.constants.STDConstants.V2009;
+import static cn.com.chnsys.std_base_data.constants.STDConstants.V2015;
+
+import java.awt.TextArea;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+
+import cn.com.chnsys.cif.base.utils.DateTimeUtil;
+import cn.com.chnsys.cif.base.utils.ExcelUtil;
+import cn.com.chnsys.cif.base.utils.RandomGuid;
+import cn.com.chnsys.cif.base.utils.excel.ExcelException;
+import cn.com.chnsys.cif.base.utils.excel.model.ColumnsSetting;
+import cn.com.chnsys.dtc.court.std.base.entity.CodeDirectory;
+import cn.com.chnsys.dtc.court.std.base.entity.CodeInfo;
+import cn.com.chnsys.dtc.court.std.base.service.CodeDirectoryService;
+import cn.com.chnsys.std_base_data.constants.STDConstants;
+import cn.com.chnsys.std_base_data.pojo.ResultPojo;
+import cn.com.chnsys.std_base_data.util.CompareResult;
+import cn.com.chnsys.std_base_data.util.ProcessorUtil;
+
+/**
+ * 代码目录
+ * @author bianxiaozeng
+ * @version 1.0
+ * 
+ * @date 2016年11月4日 下午7:11:13 
+ */
+public class CodeDrictoryProcessor implements Processor<CodeDirectory, CodeDirectoryService> {
+
+	private String[] sheetArray = {"法标外新增"};
+//	private String[] sheetArrayV2009 = {"审判业务标准代码"};
+//	private String[] sheetArrayV2015 = {"案件来源","结案方式", "一.普通代码", "二.综合业务", "三.审判执行", "四.司法政务", "五.音视频","案件类型及其代字"};;
+	/**
+	 * @see cn.com.chnsys.std_base_data.business.Processor#getNewItems(java.lang.String)
+	 */
+	public List<CodeDirectory> getNewItems(String path) throws ExcelException {
+		log.info("从excel中获取代码目录信息！");
+		ColumnsSetting columnsSetting = new ColumnsSetting();
+		columnsSetting.addColumn("name", 0);
+		columnsSetting.addColumn("num", 1);
+		List<CodeDirectory> newItems = new ArrayList<CodeDirectory>();
+		for (int i = 0; i < sheetArray.length; i++) {
+			newItems.addAll(ExcelUtil.praseExcel(CodeDirectory.class, path,
+					columnsSetting, sheetArray[i]));
+		}
+		System.out.println("数据总数量******************************************："+newItems.size());
+    	return newItems;
+	}
+
+	/**
+	 * @see cn.com.chnsys.std_base_data.business.Processor#getOldItems(cn.com.chnsys.cif.core.framework.BaseService)
+	 */
+	public List<CodeDirectory> getOldItems(CodeDirectoryService service) {
+		return service.getCodeDirectoryList(new CodeDirectory(), RowBounds.NO_ROW_OFFSET, RowBounds.NO_ROW_LIMIT);
+	}
+
+	/**
+	 * @see cn.com.chnsys.std_base_data.business.Processor#convert2Save(java.util.List)
+	 */
+	public ResultPojo convert2Save(String path, int courtStdVersion, TextArea textArea) {
+		ResultPojo rp = new ResultPojo();
+		List<CodeDirectory> newCodeDrictorys = null;
+		try {
+			newCodeDrictorys = getNewItems(path);
+		} catch (ExcelException e) {
+			log.error(e.getMessage());
+			e.printStackTrace();
+		}
+		List<String> repeatElementList = new ArrayList<String>();
+		Iterator<CodeDirectory> iterator = newCodeDrictorys.iterator();
+		log.info("获得代码目录的大小：" + newCodeDrictorys.size());
+		log.info("进行去重、设置主键、设置分级标号、设置时间....");
+		while(iterator.hasNext()){
+			CodeDirectory cd = iterator.next();
+			System.out.println(cd.getName()+"   "+cd.getNum());
+			if(cd.getName()!=null&&cd.getName().equals("表名称") && cd.getNum().equals("编号")){
+				iterator.remove();
+				continue;
+			}
+			if(repeatElementList.contains(cd.getNum())||cd.getName()==null||cd.getName().equals("")){
+				iterator.remove();
+			} else {
+				repeatElementList.add(cd.getNum());
+				cd.setCodeDirectoryID(RandomGuid.generateGuid(cd.getNum()));
+				cd.setGradeCode(cd.getNum().split("-")[1]);
+				cd.setCreateTime(DateTimeUtil.getNow());
+			}
+		}
+		
+		CodeDirectoryService codeDirectoryService = ProcessorUtil.getBean(getServiceVersion(courtStdVersion));
+		
+		List<CodeDirectory> oldItems = getOldItems(codeDirectoryService);
+		CompareResult<CodeDirectory> compareResult = null;
+		try {
+			compareResult = ProcessorUtil.compre(newCodeDrictorys, oldItems, STDConstants.CODE_DERICTORY_COMPS, "codeDirectoryID");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			e.printStackTrace();
+		}
+		List<CodeDirectory> needAddItems = compareResult.getNews();
+		if(needAddItems.size() > 0){
+			textArea.append("正在添加新增加的代码目录... \n");
+			codeDirectoryService.insertCodeDirectorys(compareResult.getNews());
+		}
+		List<CodeDirectory> needUpdateItems = compareResult.getUpdates();
+		for (CodeDirectory codeDirectory : needUpdateItems) {
+			codeDirectory.setTimestamp(DateTimeUtil.getCurrentMilliSecond());
+			codeDirectoryService.updateCodeDirectory(codeDirectory);
+			textArea.append("更新代码目录" + codeDirectory.getName() + "\n");
+		}
+		rp.setAddCountString("代码目录添加：" + needAddItems.size());
+		rp.setUpdateCountString("代码目录更新：" + needUpdateItems.size());
+		log.info("------更新数据条数：" + needUpdateItems.size());
+		return rp;
+	}
+	
+	
+	private static String getServiceVersion(int courtStdVersion){
+		String service = null;
+		switch (courtStdVersion) {
+		case V2009:
+			service = "codeDirectoryV2009Service";
+			break;
+		case V2005:
+			service = "codeDirectoryV2005Service";
+			break;
+		case V2015:
+			service = "codeDirectoryV2015Service";
+			break;
+
+		default:
+			throw unsuppertStdVersion(courtStdVersion);
+		}
+		log.info("获取的service为：" + service);
+		return service;
+	}
+
+}

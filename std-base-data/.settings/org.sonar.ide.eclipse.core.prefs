@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+extraProperties=sonar.jdbc.driver\=org.postgresql.Driver\r\nsonar.host.url\=http\://localhost\:9000\r\nsonar.jdbc.password\=sonar\r\nsonar.jdbc.url\=jdbc\:postgresql\://localhost/sonar\r\nsonar.jdbc.username\=sonar
+projectKey=cn.com.chnsys\:std-base-data
+serverUrl=http\://localhost\:9000
+version=2

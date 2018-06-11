@@ -1,0 +1,74 @@
+/**
+ * 
+ */
+package cn.com.chnsys.std_base_data.gui;
+
+import java.awt.TextArea;
+
+import cn.com.chnsys.std_base_data.business.AdministrativeDivisionCodeProcessor;
+import cn.com.chnsys.std_base_data.business.AdministrativeMyCodeProcessor;
+import cn.com.chnsys.std_base_data.business.BusinessTypeIdentityProcessor;
+import cn.com.chnsys.std_base_data.business.CaseCauseProcessor;
+import cn.com.chnsys.std_base_data.business.CaseTypeDZProcessor;
+import cn.com.chnsys.std_base_data.business.CodeDrictoryProcessor;
+import cn.com.chnsys.std_base_data.business.CodeInfoProcessor;
+import cn.com.chnsys.std_base_data.business.CourtCodeProcessor;
+import cn.com.chnsys.std_base_data.pojo.ResultPojo;
+
+/**
+ * 
+ * @author bianxiaozeng
+ * @version 1.0
+ * 
+ * @date 2016年11月14日 下午2:57:19 
+ */
+public class ExecuteTask {
+
+	public static ResultPojo excuteCourtCode(String path, int courtStdVersion, TextArea textArea){
+		CourtCodeProcessor courtCodeProcessor = new CourtCodeProcessor();
+		ResultPojo rp = courtCodeProcessor.convert2Save(path, courtStdVersion, textArea);
+		return rp;
+	}
+	
+	public static ResultPojo excuteCaseCause(String path, int courtStdVersion, TextArea textArea){
+		CaseCauseProcessor caseCauseProcessor = new CaseCauseProcessor();
+		ResultPojo rp = caseCauseProcessor.convert2Save(path, courtStdVersion, textArea);
+		return rp;
+	}
+	
+	public static ResultPojo excuteAdministrativeDivisionCode(String path, int courtStdVersion, TextArea textArea){
+		AdministrativeDivisionCodeProcessor administrativeDivisionCodeProcessor = new AdministrativeDivisionCodeProcessor();
+		return administrativeDivisionCodeProcessor.convert2Save(path, courtStdVersion, textArea);
+	}
+	
+	public static ResultPojo executeAdministrativeSuperiorCode(TextArea textArea){
+		AdministrativeDivisionCodeProcessor administrativeDivisionCodeProcessor = new AdministrativeDivisionCodeProcessor();
+		return administrativeDivisionCodeProcessor.updateSuperiorCode(textArea);
+	}
+	
+	public static ResultPojo excuteBusinessTypeIdentity(String path, int courtStdVersion, TextArea textArea){
+		BusinessTypeIdentityProcessor businessTypeIdentityProcessor = new BusinessTypeIdentityProcessor();
+		return businessTypeIdentityProcessor.convert2Save(path, courtStdVersion, textArea);
+	}
+	
+	public static ResultPojo excuteCaseTypeDZ(String path, int courtStdVersion, TextArea textArea){
+		CaseTypeDZProcessor caseTypeDZProcessor = new CaseTypeDZProcessor();
+		return caseTypeDZProcessor.convert2Save(path, courtStdVersion, textArea);
+	}
+	
+	public static ResultPojo excuteCodeDrictory(String path, int courtStdVersion , TextArea textArea){
+		CodeDrictoryProcessor codeDrictoryProcessor = new CodeDrictoryProcessor();
+		return codeDrictoryProcessor.convert2Save(path, courtStdVersion, textArea);
+	}
+	
+	public static ResultPojo excuteCodeInfo(String path, int courtStdVersion, TextArea textArea){
+		CodeInfoProcessor codeInfoProcessor = new CodeInfoProcessor();
+		return codeInfoProcessor.convert2Save(path, courtStdVersion, textArea);
+	}
+	//自定义
+	public static ResultPojo administrativeMy(String path, int courtStdVersion, TextArea textArea){
+		AdministrativeMyCodeProcessor administrativeMyCodeProcessor = new AdministrativeMyCodeProcessor();
+		return administrativeMyCodeProcessor.convert2Save(path, courtStdVersion, textArea);
+	}
+	
+}

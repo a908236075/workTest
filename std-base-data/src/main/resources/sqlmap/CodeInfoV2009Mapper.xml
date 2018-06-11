@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.chnsys.dtc.court.std.base.dao.v2009.CodeInfoV2009Dao">
+
+	<sql id="columns">
+		DAIMXXID,SHANCSJ,FENJM,DAIMMLID,DAIMMLBH,SHUOM,YOUX,MINGC,CHUANGJSJ,SHANCBJ,XIANSSX,DAIM,SHIJC
+	</sql>
+
+	<resultMap type="cn.com.chnsys.dtc.court.std.base.entity.CodeInfo"
+		id="resultMap">
+		<result column="YOUX" property="valid" />
+		<result column="DAIMXXID" property="codeOptionID" />
+		<result column="DAIMMLBH" property="codeDirectoryNo" />
+		<result column="MINGC" property="name" />
+		<result column="CHUANGJSJ" property="createTime" />
+		<result column="SHANCSJ" property="deleteTime" />
+		<result column="SHANCBJ" property="deleteFlag" />
+		<result column="XIANSSX" property="sortOrder" />
+		<result column="FENJM" property="gradeCode" />
+		<result column="DAIMMLID" property="codeDirectoryID" />
+		<result column="SHUOM" property="description" />
+		<result column="DAIM" property="code" />
+		<result column="SHIJC" property="timestamp" />
+	</resultMap>
+
+	<sql id="where_sql">
+		<where>
+			1=1
+			<if test="valid != null">AND YOUX = #{valid}</if>
+			<if test="codeOptionID != null">AND DAIMXXID = #{codeOptionID}</if>
+			<if test="codeDirectoryNo != null">AND DAIMMLBH = #{codeDirectoryNo}</if>
+			<if test="name != null">AND MINGC = #{name}</if>
+			<if test="createTime != null">AND CHUANGJSJ = #{createTime}</if>
+			<if test="deleteTime != null">AND SHANCSJ = #{deleteTime}</if>
+			<if test="deleteFlag != null">AND SHANCBJ = #{deleteFlag}</if>
+			<if test="sortOrder != null">AND XIANSSX = #{sortOrder}</if>
+			<if test="gradeCode != null">AND FENJM = #{gradeCode}</if>
+			<if test="codeDirectoryID != null">AND DAIMMLID = #{codeDirectoryID}</if>
+			<if test="description != null">AND SHUOM = #{description}</if>
+			<if test="code != null">AND DAIM = #{code}</if>
+			<if test="timestamp != null">AND SHIJC = #{timestamp}</if>
+		</where>
+	</sql>
+
+	<insert id="insertRecord" parameterType="cn.com.chnsys.dtc.court.std.base.entity.CodeInfo">
+		INSERT INTO XXHGL_DAIMXX (DAIMXXID
+		<if test="valid != null">,YOUX</if>
+		<if test="name != null">,MINGC</if>
+		<if test="createTime != null">,CHUANGJSJ</if>
+		<if test="deleteTime != null">,SHANCSJ</if>
+		<if test="deleteFlag != null">,SHANCBJ</if>
+		<if test="sortOrder != null">,XIANSSX</if>
+		<if test="gradeCode != null">,FENJM</if>
+		<if test="codeDirectoryID != null">,DAIMMLID</if>
+		<if test="codeDirectoryNo != null">,DAIMMLBH</if>
+		<if test="description != null">,SHUOM</if>
+		<if test="code != null">,DAIM</if>
+		<if test="timestamp != null">,SHIJC</if>
+		)VALUES(#{codeOptionID}
+		<if test="valid != null">,#{valid}</if>
+		<if test="name != null">,#{name}</if>
+		<if test="createTime != null">,#{createTime}</if>
+		<if test="deleteTime != null">,#{deleteTime}</if>
+		<if test="deleteFlag != null">,#{deleteFlag}</if>
+		<if test="sortOrder != null">,#{sortOrder}</if>
+		<if test="gradeCode != null">,#{gradeCode}</if>
+		<if test="codeDirectoryID != null">,#{codeDirectoryID}</if>
+		<if test="codeDirectoryNo != null">,#{codeDirectoryNo}</if>
+		<if test="description != null">,#{description}</if>
+		<if test="code != null">,#{code}</if>
+		<if test="timestamp != null">,#{timestamp}</if>
+		)
+	</insert>
+
+	<insert id="insertRecords" parameterType="java.util.List">
+		INSERT INTO XXHGL_DAIMXX (DAIMXXID
+		, YOUX
+		, MINGC
+		, CHUANGJSJ
+		, SHANCSJ
+		, SHANCBJ
+		, XIANSSX
+		, FENJM
+		, DAIMMLID
+		, DAIMMLBH
+		, SHUOM
+		, DAIM
+		, SHIJC
+		)VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.codeOptionID}
+			, #{item.valid}
+			, #{item.name}
+			, #{item.createTime}
+			, #{item.deleteTime}
+			, #{item.deleteFlag}
+			, #{item.sortOrder}
+			, #{item.gradeCode}
+			, #{item.codeDirectoryID}
+			, #{item.codeDirectoryNo}
+			, #{item.description}
+			, #{item.code}
+			, #{item.timestamp}
+			)
+		</foreach>
+	</insert>
+
+	<update id="updateRecord" parameterType="cn.com.chnsys.dtc.court.std.base.entity.CodeInfo">
+		UPDATE XXHGL_DAIMXX SET
+		<trim suffix="" suffixOverrides=",">
+			<if test="valid != null">YOUX = #{valid},</if>
+			<if test="name != null">MINGC = #{name},</if>
+			<if test="createTime != null">CHUANGJSJ = #{createTime},</if>
+			<if test="deleteTime != null">SHANCSJ = #{deleteTime},</if>
+			<if test="deleteFlag != null">SHANCBJ = #{deleteFlag},</if>
+			<if test="sortOrder != null">XIANSSX = #{sortOrder},</if>
+			<if test="gradeCode != null">FENJM = #{gradeCode},</if>
+			<if test="codeDirectoryID != null">DAIMMLID = #{codeDirectoryID},</if>
+			<if test="codeDirectoryNo != null">DAIMMLBH = #{codeDirectoryNo},</if>
+			<if test="description != null">SHUOM = #{description},</if>
+			<if test="code != null">DAIM = #{code},</if>
+			<if test="timestamp != null">SHIJC = #{timestamp},</if>
+		</trim>
+		WHERE DAIMXXID = #{codeOptionID}
+	</update>
+
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM
+		XXHGL_DAIMXX where DAIMXXID = #{id}
+	</delete>
+
+	<delete id="deleteRecordsByIds">
+		DELETE FROM
+		XXHGL_DAIMXX where DAIMXXID in (
+		<foreach collection="array" item="id" index="index" separator=",">
+			#{id}
+		</foreach>
+		)
+	</delete>
+
+	<select id="getName" resultType="string">
+		SELECT MINGC FROM XXHGL_DAIMXX
+		WHERE DAIM = #{0} AND DAIMMLBH = #{1}
+	</select>
+
+	<select id="getNameByID" resultType="string" parameterType="string">
+		SELECT MINGC FROM XXHGL_DAIMXX WHERE DAIMXXID = #{id}
+	</select>
+
+	<select id="getRecords" parameterType="cn.com.chnsys.dtc.court.std.base.entity.CodeInfo"
+		resultMap="resultMap">
+		SELECT
+		<include refid="columns" />
+		FROM XXHGL_DAIMXX
+		<include refid="where_sql" />
+	</select>
+
+	<select id="getRecordById" parameterType="string" resultMap="resultMap">
+		SELECT
+		<include refid="columns" />
+		FROM XXHGL_DAIMXX
+		WHERE DAIMXXID = #{id}
+	</select>
+
+	<select id="getRecordByInterfaceId" resultMap="resultMap">
+		SELECT
+		<include refid="columns" />
+		FROM XXHGL_DAIMXX
+		WHERE daim = #{0} AND jiekbs = #{1}
+	</select>
+
+	<select id="getRecordsByIds" resultMap="resultMap">
+		SELECT
+		<include refid="columns" />
+		FROM XXHGL_DAIMXX
+		WHERE DAIMXXID in (
+		<foreach collection="array" item="id" index="index" separator=",">
+			#{id}
+		</foreach>
+		)
+	</select>
+
+	<select id="getTotalRecord" parameterType="cn.com.chnsys.dtc.court.std.base.entity.CodeInfo"
+		resultType="java.lang.Integer">
+		select count(DAIMXXID) from
+		XXHGL_DAIMXX
+		<include refid="where_sql" />
+	</select>
+
+	<select id="getMaxRecord" resultType="java.lang.Integer">
+		select max(xianssx) from
+		XXHGL_DAIMXX
+	</select>
+</mapper>

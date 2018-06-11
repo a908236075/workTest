@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        ">
+    <!-- 行政区划缓存 -->
+    <bean id="administrativeDivisionCache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.AdministrativeDivisionKeyParser">
+                <property name="courtStdVersion" value="2015" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2015.AdministrativeDivisionCodeV2015Dao" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.AdministrativeDivisionLoader">
+                <property name="administrativeDivisionCodeService" ref="administrativeDivisionCodeV2015Service" />
+            </bean>
+        </property>
+        <property name="proxy">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.interceptor.AdministrativeDivisionCacheProxy" />
+        </property>
+    </bean>
+    
+    <!-- 业务类型标识缓存 -->
+    <bean id="businessTypeIdentityCache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.BusinessTypeIdentityKeyParser">
+                <property name="courtStdVersion" value="2015" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.BusinessTypeIdentityDao"/>
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.BusinessTypeIdentityLoader">
+                <property name="businessTypeIdentityService" ref="businessTypeIdentityV2015Service" />
+            </bean>
+        </property>
+        <property name="proxy">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.interceptor.BusinessTypeIdentityCacheProxy" />
+        </property>
+    </bean>
+    
+    <!-- 案由缓存拦截处理 -->
+    <bean id="caseCauseCacheProxy" class="cn.com.chnsys.dtc.court.std.base.cache.interceptor.CaseCauseCacheProxy" />
+    
+    <!-- 案由2005版本缓存 -->
+    <bean id="caseCauseV2005Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CaseCauseKeyParser">
+                <property name="courtStdVersion" value="2005" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2005.CaseCauseCodeV2005Dao" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CaseCauseLoader">
+                <property name="caseCauseCodeService" ref="caseCauseCodeV2005Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="caseCauseCacheProxy"/>
+    </bean>
+    
+    <!-- 案由2009版本缓存 -->
+    <bean id="caseCauseV2009Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CaseCauseKeyParser">
+                <property name="courtStdVersion" value="2009" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2009.CaseCauseCodeV2009Dao" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CaseCauseLoader">
+                <property name="caseCauseCodeService" ref="caseCauseCodeV2009Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="caseCauseCacheProxy"/>
+    </bean>
+    
+    <!-- 案由2015版本缓存 -->
+    <bean id="caseCauseV2015Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CaseCauseKeyParser">
+                <property name="courtStdVersion" value="2015" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2015.CaseCauseCodeV2015Dao" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CaseCauseLoader">
+                <property name="caseCauseCodeService" ref="caseCauseCodeV2015Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="caseCauseCacheProxy"/>
+    </bean>
+    
+    <!-- 案件类型代字缓存拦截处理 -->
+    <bean id="caseTypeDZCacheProxy" class="cn.com.chnsys.dtc.court.std.base.cache.interceptor.CaseTypeDZCacheProxy" />
+    
+    <!-- 案件类型代字2005版本缓存 -->
+    <bean id="caseTypeDZV2005Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CaseTypeDZKeyParser">
+                <property name="courtStdVersion" value="2005" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2005.CaseTypeDZV2005Dao" />
+                <property name="tableName" value="XXHGL_SHENPZH" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CaseTypeDZLoader">
+                <property name="caseTypeDZService" ref="caseTypeDZV2005Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="caseTypeDZCacheProxy"/>
+    </bean>
+    
+    <!-- 案件类型代字2009版本缓存 -->
+    <bean id="caseTypeDZV2009Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CaseTypeDZKeyParser">
+                <property name="courtStdVersion" value="2009" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2009.CaseTypeDZV2009Dao" />
+                <property name="tableName" value="XXHGL_SHENPZH" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CaseTypeDZLoader">
+                <property name="caseTypeDZService" ref="caseTypeDZV2009Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="caseTypeDZCacheProxy"/>
+    </bean>
+    
+    <!-- 案件类型代字2015版本缓存 -->
+    <bean id="caseTypeDZV2015Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CaseTypeDZKeyParser">
+                <property name="courtStdVersion" value="2015" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2015.CaseTypeDZV2015Dao" />
+                <property name="tableName" value="XXHGL_ANJLXDZ" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CaseTypeDZLoader">
+                <property name="caseTypeDZService" ref="caseTypeDZV2015Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="caseTypeDZCacheProxy"/>
+    </bean>
+
+    <!-- 标准代码缓存拦截处理 -->
+    <bean id="codeInfoCacheProxy" class="cn.com.chnsys.dtc.court.std.base.cache.interceptor.CodeInfoCacheProxy" />
+    
+    <!-- 标准代码缓存key解析 -->
+    <bean id="codeInfoKeyParser" class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CodeInfoKeyParser" />
+    
+    <!-- 标准代码2005版本缓存 -->
+    <bean id="codeInfoV2005Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser"  ref="codeInfoKeyParser"/>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CodeInfoLoader">
+                <property name="codeInfoService" ref="codeInfoV2005Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="codeInfoCacheProxy"/>
+    </bean>
+    
+    <!-- 标准代码2009版本缓存 -->
+    <bean id="codeInfoV2009Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser"  ref="codeInfoKeyParser"/>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CodeInfoLoader">
+                <property name="codeInfoService" ref="codeInfoV2009Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="codeInfoCacheProxy"/>
+    </bean>
+    
+    <!-- 标准代码2015版本缓存 -->
+    <bean id="codeInfoV2015Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser"  ref="codeInfoKeyParser"/>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CodeInfoLoader">
+                <property name="codeInfoService" ref="codeInfoV2015Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="codeInfoCacheProxy"/>
+    </bean>
+    
+    <!-- 法院代码缓存拦截处理 -->
+    <bean id="courtCodeCacheProxy" class="cn.com.chnsys.dtc.court.std.base.cache.interceptor.CourtCodeCacheProxy" />
+    
+    <!-- 法院代码2005版本缓存 -->
+    <bean id="courtCodeV2005Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CourtCodeKeyParser">
+                <property name="courtStdVersion" value="2005" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2005.CourtCodeV2005Dao" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CourtCodeLoader">
+                <property name="courtCodeService" ref="courtCodeV2005Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="courtCodeCacheProxy"/>
+    </bean>
+    
+    <!-- 法院代码2009版本缓存 -->
+    <bean id="courtCodeV2009Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CourtCodeKeyParser">
+                <property name="courtStdVersion" value="2009" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2009.CourtCodeV2009Dao" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CourtCodeLoader">
+                <property name="courtCodeService" ref="courtCodeV2009Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="courtCodeCacheProxy"/>
+    </bean>
+    
+    <!-- 法院代码2015版本缓存 -->
+    <bean id="courtCodeV2015Cache" class="cn.com.chnsys.dtc.cache.handler.CacheImpl">
+        <property name="client" ref="hmRedisClient" />
+        <property name="keyParser">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.keyparser.CourtCodeKeyParser">
+                <property name="courtStdVersion" value="2015" />
+                <property name="daoType" value="cn.com.chnsys.dtc.court.std.base.dao.v2015.CourtCodeV2015Dao" />
+            </bean>
+        </property>
+        <property name="loader">
+            <bean class="cn.com.chnsys.dtc.court.std.base.cache.loader.CourtCodeLoader">
+                <property name="courtCodeService" ref="courtCodeV2015Service" />
+            </bean>
+        </property>
+        <property name="proxy" ref="courtCodeCacheProxy"/>
+    </bean>
+</beans>

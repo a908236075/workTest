@@ -1,0 +1,104 @@
+package cn.com.chnsys.std_base_data;
+
+import static cn.com.chnsys.dtc.court.std.base.constants.CourtStdVersion.V2015;
+
+import java.awt.TextArea;
+import java.io.File;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import cn.com.chnsys.cif.base.utils.excel.ExcelException;
+import cn.com.chnsys.dtc.court.std.base.entity.CourtCode;
+import cn.com.chnsys.std_base_data.business.CaseCauseProcessor;
+import cn.com.chnsys.std_base_data.business.CodeDrictoryProcessor;
+import cn.com.chnsys.std_base_data.business.CodeInfoProcessor;
+import cn.com.chnsys.std_base_data.business.CourtCodeProcessor;
+import cn.com.chnsys.std_base_data.util.GeneratorCaseTypeConstants;
+import cn.com.chnsys.std_base_data.util.ProcessorUtil;
+
+/**
+ * Hello world!
+ *
+ */
+public class Main 
+{
+    public static void main( String[] args ) throws ExcelException
+    {
+    	ProcessorUtil.loadContext();
+    	//法院代码入库
+//    	String path1 = "C:/Users/CUICHENG/Desktop/15法标/15法标代码及结构规范/2015法标代码 - 入库整理.xlsx";
+//    	CourtCodeProcessor processor = new CourtCodeProcessor();
+//    	processor.convert2Save(path1,2015, new TextArea(5, 40));
+    	
+    	//代码目录入库
+//    	String path1 = "C:/Users/CUICHENG/Desktop/15法标/15法标代码及结构规范/2015法标代码 - 入库整理 - test.xlsx";
+    	String path1 = "‪E:\\法标外新增.xlsx";
+    	CodeDrictoryProcessor processor = new CodeDrictoryProcessor();
+    	processor.convert2Save(path1,2009, new TextArea(5, 40));
+    	//代码入库
+//    	String path2 = "C:/Users/CUICHENG/Desktop/15法标/15法标代码及结构规范/2015法标代码 - 入库整理 - test.xlsx";
+//    	CodeInfoProcessor processor1 = new CodeInfoProcessor();
+//    	processor1.convert2Save(path2,2015, new TextArea(5, 40));
+    	
+    	//案件类型及其代字
+//    	String path3 = "C:/Users/LIXING/Desktop/15法标/15法标标准代码修改/2015法标代码 - 入库整理1.xlsx";
+//    	CaseTypeDZProcessor processor2 = new CaseTypeDZProcessor();
+//    	processor2.convert2Save(path3,2015, new TextArea(5, 40));
+    	
+    	//案由代码入库
+//    	String path2 = "C:/Users/CUICHENG/Desktop/15法标/入库整理的Excel/2015法标代码 - 入库整理 - 11.09.xlsx";
+//    	CaseCauseProcessor caseCauseProcessor = new CaseCauseProcessor();
+//    	caseCauseProcessor.convert2Save(path2, V2015, new TextArea(5, 40));
+    	
+    	/**
+    	 * 生成案件类型constant
+    	 */
+//    	String path2 = "C:/Users/LIXING/Desktop/caseCNENNameMapper.txt";
+//    	File file = new File(path2);
+//    	CodeInfoProcessor processor = new CodeInfoProcessor();
+//    	Map<String, String> map = GeneratorCaseTypeConstants.read(file);
+    	
+//    	for(Entry<String, String> item:map.entrySet()){
+//    		System.out.println("**********************************************************");
+//    		System.out.println(item.getKey()+"   "+item.getValue());
+//    		Integer code = processor.getCaseTypeNumByCaseTypeName(item.getValue());
+//    		String name = convertName(item.getKey());
+//    		System.out.println("/**\n"+" * "+item.getValue()+" \n */");
+//    		System.out.println(" public static final int "+name+"V2015 = "+code+";"); 
+//    		System.out.println("}else if(caseType== CaseTypeConstantV2015."+name+"V2015){"); 
+//    		System.out.println("//vo.setCloseCaseModeName(getName(vo.getCloseStyle(), "+'"'+"GF2015-"+'"'+", V2015));"); 
+//    		System.out.println("**********************************************************");
+//    	}
+    	
+    	
+//    	vo.setCloseCaseModeName(getName(vo.getCloseStyle(), "GF2015-", V2015));
+//		if(caseType == CaseTypeConstantV2015.ACCEPT_EXECUTE_AOMEN_ARBITRATION_CENSOR_CASE_V2015){
+//			vo.setCaseSourceName(getName(vo.getCaseSource(), "GF2015-", V2015));
+//		}else if (caseType == CaseTypeConstantV2015.ACCEPT_EXECUTE_AOMEN_ARBITRATION_CENSOR_CASE_V2015) {
+//			vo.setCaseSourceName(getName(vo.getCaseSource(), "GF2015-", V2015));
+//		}
+    }
+    
+
+	private static String convertName(String s) {
+		StringBuilder sb = new StringBuilder();
+		int preIndex =0;
+		int endIndex = 0;
+		int lastIndex = 0;
+		for(int i=0;i<s.length();i++){
+			if((64<s.charAt(i))&&(s.charAt(i)<91)){
+				if(i==0){
+					endIndex = i;
+					sb.append(s.substring(preIndex, endIndex).toUpperCase());
+					preIndex = i;
+				}else{
+					endIndex = i;
+					lastIndex = i;
+					sb.append(s.substring(preIndex, endIndex).toUpperCase()).append("_");
+					preIndex = i;
+				}
+			}
+		}
+		return sb.append(s.substring(lastIndex, s.length()).toUpperCase()).append("_").toString(); 
+	}
+}

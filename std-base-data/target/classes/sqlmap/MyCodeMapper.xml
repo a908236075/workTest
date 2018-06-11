@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-
+<mapper namespace="cn.com.chnsys.std_base_data.entity.MyCodeDaoMapper">
+
+	<sql id="columns">
+		RANG,NAME,OWER
+	</sql>
+
+	<resultMap type="cn.com.chnsys.std_base_data.entity.MyCodeV0529"
+		id="resultMap">
+		<id column="RANG" property="rang"/>
+		<result column="NAME" property="name" />
+		<result column="OWER" property="ower" />
+	</resultMap>
+
+
+	<insert id="insertRecord" parameterType="cn.com.chnsys.std_base_data.entity.MyCodeV0529">
+		INSERT INTO 'wugong'(
+		RANG
+		, NAME
+		, OWER
+		)VALUES(
+			#{rang}
+		, #{name}
+		, #{ower}
+		)
+
+	</insert>
+
+	<update id="updateRecord" parameterType="cn.com.chnsys.std_base_data.entity.MyCodeV0529">
+		UPDATE WUGONG SET
+		NAME = #{name},
+		OWER = #{ower}
+		<where>
+			RANG = #{rang}
+		</where>
+	</update>
+	<select id="getRecords" parameterMap="cn.com.chnsys.std_base_data.entity.MyCodeV0529"
+		resultMap="resultMap">
+		SELECT * FROM WUGONG
+
+	</select>
+
+</mapper>

@@ -1,0 +1,22 @@
+# Global logging configuration
+#,R
+log4j.rootLogger=INFO, stdout, R
+log4j.logger.cn.com.chnsys=INFO
+log4j.logger.java.sql.Connection=INFO
+log4j.logger.java.sql.Statement=INFO
+log4j.logger.java.sql.PreparedStatement=INFO
+log4j.logger.java.sql.ResultSet=INFO
+
+# Console output...
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%c - %d{yyyy-MM-dd HH:mm:ss} %p [%t] - %m%n
+
+# Record file
+log4j.appender.R=org.apache.log4j.RollingFileAppender
+log4j.appender.R.File=logs/base-data.log
+log4j.appender.R.MaxFileSize=4096KB
+log4j.appender.R.Encoding=UTF-8
+log4j.appender.R.MaxBackupIndex=5
+log4j.appender.R.layout=org.apache.log4j.PatternLayout
+log4j.appender.R.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %p [%t] - %m%n

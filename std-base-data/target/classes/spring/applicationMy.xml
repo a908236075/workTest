@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" " http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<!-- 加载配置文件 -->
+   <!-- 加载配置文件 -->
+    <context:property-placeholder location="classpath:config/db.properties" />
+
+	<!-- 0529法标代码库配置数据源 -->
+	<bean id="std0529DataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc_driverClassName}" />
+		<property name="url" value="${std0529_jdbc_url}" />
+		<property name="username" value="${std0529_jdbc_user}" />
+		<property name="password" value="${std0529_jdbc_password}" />
+
+	</bean>
+
+	<bean id="std0529SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="std0529DataSource" />
+		<!--扫描mapping.xml文件 -->
+		<property name="mapperLocations">
+		
+				<value>classpath:sqlmap/*.xml</value>
+		
+		</property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>cn.com.chnsys.std_base_data.entity</value>
+		</property>
+		<property name="sqlSessionFactoryBeanName" value="std0529SqlSessionFactory" />
+	</bean>
+
+	<bean id="MyCodeV0529Service"
+		class="cn.com.chnsys.std_base_data.entity.MyCodeV0529ServiceImpl">
+	</bean>
+</beans>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        ">
+        
+	<!--service层注册 -->
+	<bean id="administrativeDivisionCodeV2015Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.AdministrativeDivisionCodeServiceImpl">
+		<property name="administrativeDivisionCodeV2015Dao" ref="administrativeDivisionCodeV2015Dao"></property>
+	</bean>
+
+	<bean id="caseCauseCodeV2005Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CaseCauseCodeServiceImpl">
+		<property name="caseCauseCodeDao" ref="caseCauseCodeV2005Dao"></property>
+	</bean>
+
+	<bean id="caseCauseCodeV2009Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CaseCauseCodeServiceImpl">
+		<property name="caseCauseCodeDao" ref="caseCauseCodeV2009Dao"></property>
+	</bean>
+
+	<bean id="caseCauseCodeV2015Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CaseCauseCodeServiceImpl">
+		<property name="caseCauseCodeDao" ref="caseCauseCodeV2015Dao"></property>
+	</bean>
+
+	<bean id="caseTypeDZV2005Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CaseTypeDZServiceImpl">
+		<property name="caseTypeDZDao" ref="caseTypeDZV2005Dao"></property>
+	</bean>
+
+	<bean id="caseTypeDZV2009Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CaseTypeDZServiceImpl">
+		<property name="caseTypeDZDao" ref="caseTypeDZV2009Dao"></property>
+	</bean>
+
+	<bean id="caseTypeDZV2015Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CaseTypeDZServiceImpl">
+		<property name="caseTypeDZDao" ref="caseTypeDZV2015Dao"></property>
+	</bean>
+
+	<bean id="codeDirectoryV2005Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CodeDirectoryServiceImpl">
+		<property name="codeDirectoryDao" ref="codeDirectoryV2005Dao"></property>
+	</bean>
+
+	<bean id="codeDirectoryV2009Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CodeDirectoryServiceImpl">
+		<property name="codeDirectoryDao" ref="codeDirectoryV2009Dao"></property>
+	</bean>
+
+	<bean id="codeDirectoryV2015Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CodeDirectoryServiceImpl">
+		<property name="codeDirectoryDao" ref="codeDirectoryV2015Dao"></property>
+	</bean>
+
+	<bean id="codeInfoV2005Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CodeInfoServiceImpl">
+		<property name="codeInfoDao" ref="codeInfoV2005Dao"></property>
+	</bean>
+
+	<bean id="codeInfoV2009Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CodeInfoServiceImpl">
+		<property name="codeInfoDao" ref="codeInfoV2009Dao" />
+	</bean>
+
+	<bean id="codeInfoV2015Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CodeInfoServiceImpl">
+		<property name="codeInfoDao" ref="codeInfoV2015Dao"></property>
+	</bean>
+
+	<bean id="courtCodeV2005Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CourtCodeServiceImpl">
+		<property name="courtCodeDao" ref="courtCodeV2005Dao"></property>
+	</bean>
+
+	<bean id="courtCodeV2009Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CourtCodeServiceImpl">
+		<property name="courtCodeDao" ref="courtCodeV2009Dao"></property>
+	</bean>
+
+	<bean id="courtCodeV2015Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.CourtCodeServiceImpl">
+		<property name="courtCodeDao" ref="courtCodeV2015Dao"></property>
+	</bean>
+
+	<bean id="businessTypeIdentityV2015Service"
+		class="cn.com.chnsys.dtc.court.std.base.service.impl.BusinessTypeIdentityServiceImpl">
+		<property name="businessTypeIdentityV2015Dao" ref="businessTypeIdentityV2015Dao"></property>
+	</bean>
+</beans>

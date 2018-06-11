@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        ">
+        
+	<!-- logic层注册 -->
+    <bean id="administrativeDivisionCodeLogic"
+        class="cn.com.chnsys.dtc.court.std.base.logic.impl.AdministrativeDivisionCodeLogicImpl">
+        <property name="administrativeDivisionCodeV2015Service" ref="administrativeDivisionCodeV2015Service" />
+    </bean>
+
+    <bean id="caseCauseCodeLogic"
+        class="cn.com.chnsys.dtc.court.std.base.logic.impl.CaseCauseCodeLogicImpl">
+        <property name="caseCauseCodeV2005Service" ref="caseCauseCodeV2005Service" />
+        <property name="caseCauseCodeV2009Service" ref="caseCauseCodeV2009Service" />
+        <property name="caseCauseCodeV2015Service" ref="caseCauseCodeV2015Service" />
+    </bean>
+    
+    <bean id="caseTypeDZLogic"
+        class="cn.com.chnsys.dtc.court.std.base.logic.impl.CaseTypeDZLogicImpl">
+        <property name="caseTypeDZV2005Service" ref="caseTypeDZV2005Service" />
+        <property name="caseTypeDZV2009Service" ref="caseTypeDZV2009Service" />
+        <property name="caseTypeDZV2015Service" ref="caseTypeDZV2015Service" />
+    </bean>
+    
+    <bean id="codeDirectoryLogic"
+        class="cn.com.chnsys.dtc.court.std.base.logic.impl.CodeDirectoryLogicImpl">
+        <property name="codeDirectoryV2005Service" ref="codeDirectoryV2005Service" />
+        <property name="codeDirectoryV2009Service" ref="codeDirectoryV2009Service" />
+        <property name="codeDirectoryV2015Service" ref="codeDirectoryV2015Service" />
+    </bean>
+    
+    <bean id="courtCodeLogic"
+        class="cn.com.chnsys.dtc.court.std.base.logic.impl.CourtCodeLogicImpl">
+        <property name="courtCodeV2005Service" ref="courtCodeV2005Service" />
+        <property name="courtCodeV2009Service" ref="courtCodeV2009Service" />
+        <property name="courtCodeV2015Service" ref="courtCodeV2015Service" />
+    </bean>
+
+    <bean id="codeInfoLogic"
+        class="cn.com.chnsys.dtc.court.std.base.logic.impl.CodeInfoLogicImpl">
+        <property name="codeInfoV2005Service" ref="codeInfoV2005Service" />
+        <property name="codeInfoV2009Service" ref="codeInfoV2009Service" />
+        <property name="codeInfoV2015Service" ref="codeInfoV2015Service" />
+    </bean>
+    
+    <bean id="businessTypeIdentityLogic"
+        class="cn.com.chnsys.dtc.court.std.base.logic.impl.BusinessTypeIdentityLogicImpl">
+        <property name="businessTypeIdentityV2015Service" ref="businessTypeIdentityV2015Service" />
+    </bean>
+</beans>

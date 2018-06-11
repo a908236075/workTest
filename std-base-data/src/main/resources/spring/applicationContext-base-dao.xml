@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        ">
+
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:config/db.properties"
+		ignore-unresolvable="true" />
+	<!-- 配置数据源 -->
+
+	<!-- 2005法标代码库配置数据源 -->
+	<bean id="std2005DataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc_driverClassName}" />
+		<property name="url" value="${std2005_jdbc_url}" />
+		<property name="username" value="${std2005_jdbc_user}" />
+		<property name="password" value="${std2005_jdbc_password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${initialSize}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="maxActive" value="${maxActive}" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${maxWait}" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />
+		<property name="testOnReturn" value="${testOnReturn}" />
+	</bean>
+
+	<!-- 2009法标代码库配置数据源 -->
+	<bean id="std2009DataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc_driverClassName}" />
+		<property name="url" value="${std2009_jdbc_url}" />
+		<property name="username" value="${std2009_jdbc_user}" />
+		<property name="password" value="${std2009_jdbc_password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${initialSize}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="maxActive" value="${maxActive}" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${maxWait}" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />
+		<property name="testOnReturn" value="${testOnReturn}" />
+	</bean>
+
+	<!-- 2015法标代码库配置数据源 -->
+	<bean id="std2015DataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc_driverClassName}" />
+		<property name="url" value="${std2015_jdbc_url}" />
+		<property name="username" value="${std2015_jdbc_user}" />
+		<property name="password" value="${std2015_jdbc_password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${initialSize}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="maxActive" value="${maxActive}" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${maxWait}" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />
+		<property name="testOnReturn" value="${testOnReturn}" />
+	</bean>
+
+	<!-- 0529法标代码库配置数据源 -->
+	<bean id="std0529DataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc_driverClassName}" />
+		<property name="url" value="${std0529_jdbc_url}" />
+		<property name="username" value="${std0529_jdbc_user}" />
+		<property name="password" value="${std0529_jdbc_password}" />
+
+	</bean>
+
+
+	<bean id="std2005TransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="std2005DataSource" />
+	</bean>
+
+	<tx:advice id="std2005TxAdvice" transaction-manager="std2005TransactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<!-- 继续补充 -->
+		</tx:attributes>
+	</tx:advice>
+
+	<bean id="std2009TransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="std2009DataSource" />
+	</bean>
+
+	<tx:advice id="std2009TxAdvice" transaction-manager="std2009TransactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<!-- 继续补充 -->
+		</tx:attributes>
+	</tx:advice>
+
+
+	<bean id="std2015TransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="std2015DataSource" />
+	</bean>
+
+	<tx:advice id="std2015TxAdvice" transaction-manager="std2015TransactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<!-- 继续补充 -->
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="false">
+		<aop:pointcut id="swapServiceMethod"
+			expression="execution(* cn.com.chnys.dtc.*.service.impl.*.*(..))" />
+		<aop:pointcut id="businessServiceMethod"
+			expression="execution(* cn.com.chnys.dtc.*.service.impl.*.*(..))" />
+		<aop:pointcut id="std2005ServiceMethod"
+			expression="execution(* cn.com.chnys.dtc.*.service.impl.*.*(..))" />
+		<aop:pointcut id="std2009ServiceMethod"
+			expression="execution(* cn.com.chnys.dtc.*.service.impl.*.*(..))" />
+		<aop:pointcut id="std2015ServiceMethod"
+			expression="execution(* cn.com.chnys.dtc.*.service.impl.*.*(..))" />
+		<aop:advisor pointcut-ref="std2005ServiceMethod"
+			advice-ref="std2005TxAdvice" />
+		<aop:advisor pointcut-ref="std2009ServiceMethod"
+			advice-ref="std2009TxAdvice" />
+		<aop:advisor pointcut-ref="std2015ServiceMethod"
+			advice-ref="std2015TxAdvice" />
+	</aop:config>
+
+	<!-- spring和MyBatis整合 -->
+	<bean id="std2005SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="std2005DataSource" />
+		<!--扫描mapping.xml文件 -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:cn/com/chnsys/dtc/court/std/base/v2005/mapping/*.xml
+				</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean id="std2009SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="std2009DataSource" />
+		<!--扫描mapping.xml文件 -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:cn/com/chnsys/dtc/court/std/base/v2009/mapping/*.xml
+				</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean id="std0529SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="std0529DataSource" />
+		<!--扫描mapping.xml文件 -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:sqlmap/*.xml</value>
+			</array>
+		</property>
+	</bean>
+
+	<!--DAO接口所在包名 -->
+	<bean id="std2015SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="std2015DataSource" />
+		<!--扫描mapping.xml文件 -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:cn/com/chnsys/dtc/court/std/base/v2015/mapping/*.xml
+				</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>cn.com.chnsys.dtc.court.std.base.dao.v2005</value>
+		</property>
+		<property name="sqlSessionFactoryBeanName" value="std2005SqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>cn.com.chnsys.dtc.court.std.base.dao.v2009</value>
+		</property>
+		<property name="sqlSessionFactoryBeanName" value="std2009SqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>cn.com.chnsys.dtc.court.std.base.dao.v2015</value>
+		</property>
+		<property name="sqlSessionFactoryBeanName" value="std2015SqlSessionFactory" />
+	</bean>
+
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>cn.com.chnsys.std_base_data.entity</value>
+		</property>
+		<property name="sqlSessionFactoryBeanName" value="std0529SqlSessionFactory" />
+	</bean>
+
+  <bean id="MyCodeV0529Service"
+		class="cn.com.chnsys.std_base_data.entity.MyCodeV0529ServiceImpl">
+	</bean>
+	
+</beans>
